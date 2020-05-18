@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import "bulma/css/bulma.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {Switch , Route } from "react-router-dom"
+
+import {Form} from "./componentes/form.js"
+import {Section} from "./componentes/sections.js";
+import {NotFound} from "./componentes/notFound.js";
+
+
+class App extends Component {
+
+  render() {
+
+    const url = new URL(document.location)
+    const hasId = url.searchParams.has("question")
+    //console.log(url.searchParams.get("question"))
+
+    return (
+      <div className="App">
+        <Switch>
+            <Route exact path="/" component={Form}></Route>
+            <Route path="/question/:text" component={Section}></Route>
+            <Route component={NotFound}></Route>
+          </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
